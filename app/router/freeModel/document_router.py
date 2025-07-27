@@ -1,6 +1,4 @@
-from flask import Blueprint, request, jsonify, current_app
-from werkzeug.utils import secure_filename
-import os
+from flask import Blueprint, jsonify
 from app.controller.documentController import analyze_document_controller
 from app.functions.file_upload import save_uploaded_file
 

@@ -18,7 +18,7 @@ class OpenAIClient:
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": "Analyze this image and describe and count numbers and text you see."},
+                            {"type": "text", "text": "Analyze this image and describe and count numbers and words you see."},
                             {"type": "image_url", "image_url": f"data:image/png;base64,{image_base64}"}
                         ]
                     }
