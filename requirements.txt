@@ -1,4 +1,6 @@
-flask 
-openai 
+flask
+openai
 werkzeug
 python-dotenv
+easyocr
+opencv-python
