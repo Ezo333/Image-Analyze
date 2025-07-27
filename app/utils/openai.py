@@ -4,10 +4,13 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class OpenAIClient:
     def analyze_image(self, image_path):
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            return {"error": "OPENAI_API_KEY is missing"}
+        openai.api_key = api_key
         with open(image_path, "rb") as image_file:
             image_bytes = image_file.read()
             image_base64 = base64.b64encode(image_bytes).decode("utf-8")

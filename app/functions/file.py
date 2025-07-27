@@ -2,7 +2,13 @@ import os
 import hashlib
 import json
 
-CACHE_FILE = 'app/cache.json'
+def get_cache_file(cache_type):
+    if cache_type == 'document':
+        return 'app/cache_document.json'
+    elif cache_type == 'image':
+        return 'app/cache_image.json'
+    else:
+        return 'app/cache.json'
 
 def delete_file(file_path):
     try:
@@ -17,13 +23,28 @@ def get_image_hash(image_path):
         hasher.update(buf)
     return hasher.hexdigest()
 
-def load_cache():
+def load_cache(cache_type):
+    cache_file = get_cache_file(cache_type)
     try:
-        with open(CACHE_FILE, 'r') as f:
+        with open(cache_file, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
-def save_cache(cache):
-    with open(CACHE_FILE, 'w') as f:
+def save_cache(cache, cache_type):
+    cache_file = get_cache_file(cache_type)
+    with open(cache_file, 'w') as f:
         json.dump(cache, f)
+
+def get_cached_result(image_path, cache_type):
+    image_hash = get_image_hash(image_path)
+    cache = load_cache(cache_type)
+    return cache.get(image_hash)
+
+def set_cached_result(image_path, result, cache_type):
+    if result.get("error"):
+        return
+    image_hash = get_image_hash(image_path)
+    cache = load_cache(cache_type)
+    cache[image_hash] = result
+    save_cache(cache, cache_type)

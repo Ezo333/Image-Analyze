@@ -1,15 +1,12 @@
 from app.utils.document_analyzer import DocumentAnalyzer
-from app.functions.file import get_image_hash, load_cache, save_cache, delete_file  
+from app.functions.file import get_cached_result, set_cached_result, delete_file  
 
 def analyze_document_controller(image_path):
-    image_hash = get_image_hash(image_path)
-    cache = load_cache()
-    if image_hash in cache:
-        result = cache[image_hash]
-    else:
+    result = get_cached_result(image_path, 'document')
+    if result is None:
         analyzer = DocumentAnalyzer()
         result = analyzer.analyze_document(image_path)
-        cache[image_hash] = result
-        save_cache(cache)
+        if not result.get("error"):
+            set_cached_result(image_path, result, 'document')
     delete_file(image_path)
     return result
