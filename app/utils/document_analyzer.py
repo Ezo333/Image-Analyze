@@ -3,7 +3,7 @@ import re
 
 class DocumentAnalyzer:
     def __init__(self):
-        self.reader = easyocr.Reader('mn', gpu=True)
+        self.reader = easyocr.Reader(['mn'], gpu=True)
     
     def analyze_document(self, image_path):
         result = self.reader.readtext(image_path)
