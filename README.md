@@ -26,3 +26,5 @@ form-data:
    
 .env 
 OPENAI_API_KEY = OpenAI key 
+
+python version 3.12.10
