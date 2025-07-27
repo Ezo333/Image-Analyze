@@ -12,19 +12,19 @@ class OpenAIClient:
             image_bytes = image_file.read()
             image_base64 = base64.b64encode(image_bytes).decode("utf-8")
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4-vision-preview",
+            response = openai.chat.completions.create(
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": "Analyze this image and describe any numbers and text you see."},
-                            {"type": "image_url", "image_url": f"data:image/jpeg;base64,{image_base64}"}
+                            {"type": "text", "text": "Analyze this image and describe and count numbers and text you see."},
+                            {"type": "image_url", "image_url": f"data:image/png;base64,{image_base64}"}
                         ]
                     }
                 ],
                 max_tokens=300
             )
-            return {"result": response.choices[0].message['content']}
+            return {"result": response.choices[0].message.content}
         except Exception as e:
             return {"error": str(e)}
