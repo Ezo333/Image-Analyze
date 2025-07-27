@@ -23,7 +23,7 @@ class OpenAIClient:
                         ]
                     }
                 ],
-                max_tokens=300
+                max_tokens=100,
             )
             return {"result": response.choices[0].message.content}
         except Exception as e:
