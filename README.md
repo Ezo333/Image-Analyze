@@ -23,4 +23,6 @@ form-data:
    ```
    curl -X POST -F "file=@your_image.jpg" http://127.0.0.1:5000/main/document/analyze
    ```
-
+   
+.env 
+OPENAI_API_KEY = OpenAI key 
